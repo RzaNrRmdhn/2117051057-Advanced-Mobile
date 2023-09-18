@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 // late String nama;
 void main(List<String> args) {
   // Object nama;
@@ -26,7 +26,7 @@ void main(List<String> args) {
 Function tambah = (int a, int b) => a + b;
 
 void hasil(Function tambah){
-  print(tambah(1, 2));
+  // print(tambah(1, 2));
 }
 
 // int tambah(int a, int b){
