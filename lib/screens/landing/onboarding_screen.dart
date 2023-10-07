@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -30,33 +29,16 @@ class OnBoardingScreen extends StatelessWidget {
                     const SizedBox(height: 16.0),
                     Text(
                       'Let’s start the journey',
-                      style: TextStyle(
-                        fontFamily: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, 
-                        ).fontFamily,
-                        fontSize: 24.0
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(height: 16.0),
                     Text(
                       'Experience seamless digital',
-                      style: TextStyle(
-                        fontFamily: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400, 
-                        ).fontFamily,
-                        fontSize: 16.0,
-                        color: Colors.grey,
-                      ),
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                     Text(
                       'transactions with JustDuit',
-                      style: TextStyle(
-                        fontFamily: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400, 
-                        ).fontFamily,
-                        fontSize: 16.0,
-                        color: Colors.grey,
-                      ),
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 16.0),
                     Padding(
@@ -73,29 +55,24 @@ class OnBoardingScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/SignUp');
+                          },
                           child: Text(
                             'Get Started',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontFamily: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400,
-                              ).fontFamily,
-                            ),
+                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(height: 10.0),
-                    Text(
-                      'I already have an account',
-                      style: TextStyle(
-                        fontFamily: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400, 
-                        ).fontFamily,
-                        fontSize: 16.0,
-                        color: Colors.grey,
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/SignIn');
+                      },
+                      child: Text(
+                        'I already have an account',
+                        style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ),
                     const SizedBox(height: 16.0),
