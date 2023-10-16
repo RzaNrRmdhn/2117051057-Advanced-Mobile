@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:justduit/screens/auth/account/account_user.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+
+  TextEditingController getEmailUser = TextEditingController();
+  TextEditingController getPasswordUser = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +70,10 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10.0),
-                        const TextField(
-                          decoration: InputDecoration(
+                        TextField(
+                          keyboardType: TextInputType.emailAddress,
+                          controller: getEmailUser,
+                          decoration: const InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                             ),
@@ -87,8 +99,9 @@ class SignUpScreen extends StatelessWidget {
                           )
                         ),
                         const SizedBox(height: 10.0),
-                        const TextField(
-                          decoration: InputDecoration(
+                        TextField(
+                          controller: getPasswordUser,
+                          decoration: const InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(10)),
                             ),
@@ -110,7 +123,23 @@ class SignUpScreen extends StatelessWidget {
                           width: double.infinity,
                           height: 50.0,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if(inputValidator(getEmailUser.text.trim(), getPasswordUser.text.trim())){
+                                isAccountValidator(getEmailUser.text.trim(), getPasswordUser.text.trim()) 
+                                ? Navigator.pushNamed(context, '/Home') 
+                                : ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Invalid Email or Password, please try again'),
+                                  ),
+                                );
+                              }else{
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Please fill all the fields'),
+                                  ),
+                                );
+                              }
+                            },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50.0),
@@ -145,5 +174,21 @@ class SignUpScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  bool inputValidator(String email, String pass) {
+    if (email.isEmpty ) return false;
+    if (pass.isEmpty ) return false;
+    
+    return true;
+  }
+
+  bool isAccountValidator(String email, String pass){
+    for (var element in getAccounts) {
+      if (element.getEmail == email) {
+        if (element.getPassword == pass) return true;
+      }
+    }
+    
+    return false;
   }
 }

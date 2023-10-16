@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:justduit/screens/auth/account/account_user.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+
+  TextEditingController getEmailUser = TextEditingController();
+  TextEditingController getPasswordUser = TextEditingController();
+  TextEditingController getFullNameUser = TextEditingController();
+  TextEditingController getConfirmPasswordUser = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +72,7 @@ class SignInScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10.0),
                         TextField(
+                          controller: getFullNameUser,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -87,6 +100,7 @@ class SignInScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10.0),
                         TextField(
+                          controller: getEmailUser,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -114,6 +128,7 @@ class SignInScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10.0),
                         TextField(
+                          controller: getPasswordUser,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -141,6 +156,7 @@ class SignInScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10.0),
                         TextField(
+                          controller: getConfirmPasswordUser,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -153,7 +169,18 @@ class SignInScreen extends StatelessWidget {
                           width: double.infinity,
                           height: 50.0,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if(isValidator(getFullNameUser.text.trim(), getEmailUser.text.trim(), getPasswordUser.text.trim(), getConfirmPasswordUser.text.trim())){
+                                addAccount(getFullNameUser.text.trim(), getEmailUser.text.trim(), getPasswordUser.text.trim());
+                                Navigator.pushNamed(context, '/SignUp');
+                              }else{
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Please fill all the fields'),
+                                  ),
+                                );
+                              }
+                            },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50.0),
@@ -188,5 +215,24 @@ class SignInScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  bool isValidator(String getUsername, String getEmail, String getPassword,String getConfirmPasswordUser){
+    if(getUsername.isEmpty) return false;
+    if(getEmail.isEmpty) return false;
+    if(getPassword.isEmpty) return false;
+    if(getConfirmPasswordUser.isEmpty) return false;
+    if(getPassword != getConfirmPasswordUser) return false;
+
+    return true;
+  }
+
+  void addAccount(String username, String email, String pass){
+    var newAccount = AccountService(
+      getUsername: username,
+      getEmail: email,
+      getPassword: pass
+    );
+
+    getAccounts.add(newAccount);
   }
 }

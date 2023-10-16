@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:justduit/screens/auth/signin_screen.dart';
 import 'package:justduit/screens/auth/signup_screen.dart';
+import 'package:justduit/screens/home/home_screen.dart';
 import 'package:justduit/screens/landing/onboarding_screen.dart';
 import 'package:justduit/themes/theme.dart';
 
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
         
         '/SignUp':(context) => const SignUpScreen(),
         '/SignIn':(context) => const SignInScreen(),
+
+        '/Home':(context) => const HomeScreen()
       }
     );
   }
